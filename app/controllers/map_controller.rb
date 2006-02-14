@@ -1,10 +1,11 @@
 class MapController < ApplicationController
-  NAMES = {"recommended" => "Top Events",
-           "roadshow"    => "Road Show Events",
-           "music"       => "Live Music Events",
-           "dj"          => "DJ Events",
-           "mic"         => "Open Mic Events",
-           "karaoke"     => "Karaoke Events"}
+  Type  = Struct.new(:id, :name)
+  TYPES = [Type.new("recommended", "Top Events"),
+           Type.new("roadshow",    "Road Show Events"),
+           Type.new("music",       "Live Music Events"),
+           Type.new("dj",          "DJ Events"),
+           Type.new("mic",         "Open Mic Events"),
+           Type.new("karaoke",     "Karaoke Events")]
   
   def index
     list
@@ -13,13 +14,13 @@ class MapController < ApplicationController
 
   def list
     @events = {}
-    for type in NAMES.keys
-      @events[type] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type, Date.today ])
-      for event in @events[type]
+    for type in TYPES
+      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, Date.today ])
+      for event in @events[type.id]
         event.venue ||= Location.find(:first, :conditions => ["name = ?", event.location])
       end
     end
-    @names = NAMES
+    @types = TYPES
   end
 
   def show
