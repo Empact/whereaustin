@@ -1,7 +1,7 @@
 class MapController < ApplicationController
   NAMES = {"recommended" => "Top Events",
            "roadshow"    => "Road Show Events",
-           "normal"      => "Live Music Events",
+           "music"       => "Live Music Events",
            "dj"          => "DJ Events",
            "mic"         => "Open Mic Events",
            "karaoke"     => "Karaoke Events"}
@@ -14,7 +14,10 @@ class MapController < ApplicationController
   def list
     @events = {}
     for type in NAMES.keys
-      @events[type] = Event.find(:all, :conditions => ["icon = ?", type])
+      @events[type] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type, Date.today ])
+      for event in @events[type]
+        event.venue ||= Location.find(:first, :conditions => ["name = ?", event.location])
+      end
     end
     @names = NAMES
   end

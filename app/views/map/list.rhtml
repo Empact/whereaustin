@@ -2,10 +2,9 @@
 <% for type in @names.keys -%>
 <h1 id="<%= type -%>" class="section"><%= @names[type] -%></h1>
 <ul class="eventList <%= type -%>">
-  <% for event in @events[type]
-       next if event.location.nil? -%>
-  <li><a title="<%= event.location.address -%>">
-    <span class="venue"><%= event.location.name unless event.location.nil? %></span><br />
+  <% for event in @events[type] -%>
+  <li><a title="<%= event.venue.address || "" -%>">
+    <span class="venue"><%= event.venue.name || event.location %></span><br />
     <span class="act"><%= event.name %></span></a>
   </li>
   <% end -%>
