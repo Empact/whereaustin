@@ -1,27 +1,13 @@
-<h1>Listing events</h1>
-
-<table>
-  <tr>
-  <% for column in Event.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
-  </tr>
-  
-<% for event in @events %>
-  <tr>
-  <% for column in Event.content_columns %>
-    <td><%=h event.send(column.name) %></td>
-  <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => event %></td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => event %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => event }, :confirm => 'Are you sure?' %></td>
-  </tr>
-<% end %>
-</table>
-
-<%= link_to 'Previous page', { :page => @event_pages.current.previous } if @event_pages.current.previous %>
-<%= link_to 'Next page', { :page => @event_pages.current.next } if @event_pages.current.next %> 
-
-<br />
-
-<%= link_to 'New event', :action => 'new' %>
+<div id="listings">
+<% for type in @names.keys -%>
+<h1 id="<%= type -%>" class="section"><%= @names[type] -%></h1>
+<ul class="eventList <%= type -%>">
+  <% for event in @events[type]
+       next if event.location.nil? -%>
+  <li><a title="<%= event.location.address -%>">
+    <span class="venue"><%= event.location.name unless event.location.nil? %></span><br />
+    <span class="act"><%= event.name %></span></a>
+  </li>
+  <% end -%>
+</ul>
+<% end -%>

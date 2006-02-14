@@ -1,11 +1,22 @@
 class MapController < ApplicationController
+  NAMES = {"recommended" => "Top Events",
+           "roadshow"    => "Road Show Events",
+           "normal"      => "Live Music Events",
+           "dj"          => "DJ Events",
+           "mic"         => "Open Mic Events",
+           "karaoke"     => "Karaoke Events"}
+  
   def index
     list
     render :action => 'list'
   end
 
   def list
-    @event_pages, @events = paginate :events, :per_page => 10
+    @events = {}
+    for type in NAMES.keys
+      @events[type] = Event.find(:all, :conditions => ["icon = ?", type])
+    end
+    @names = NAMES
   end
 
   def show
