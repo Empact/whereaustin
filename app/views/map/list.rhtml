@@ -1,6 +1,6 @@
 <div id="listings">
 <% for type in @types -%>
-<h2 id="<%= type.id -%>"><%= type.name -%></h1>
+<h2 id="<%= type.id -%>"><%= type.name -%></h2>
 <ul class="eventList <%= type.id -%>">
   <% for event in @events[type.id] -%>
   <li><a title="<%= event.venue.address || "" -%>">
