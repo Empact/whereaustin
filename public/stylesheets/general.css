@@ -1,0 +1,279 @@
+/********************  GENERAL ***************************/
+
+html, body {
+  font-size: .9em;
+  font-family: Arial;
+  color:#564b47;
+  margin: 0; padding: 0;
+  min-width: 775px;
+}
+
+.mark {
+	width: 12px; height: 20px;
+}
+
+.alert {
+    color: green;
+}
+
+/********************  HEADER ***************************/
+
+#header {
+	margin:0; padding: 0;
+	text-align:left; border-bottom:1px dotted gray;
+	background-color:#CCCCCC; 
+	width:auto;
+	height: 90px;
+}
+
+/* Logo not currently shown...
+#logo {
+	font-family:Trebuchet MS, Lucida Grande,Arial;
+	color:black; font-weight:bold; font-size:12px;
+	text-align:left; margin-left:.5em;
+}
+*/
+
+#key {
+	margin: 0; padding: 0 1em 0 0;
+	list-style-type: none;
+	text-align: right;
+}
+
+#key dd, #key dt {
+	margin: 0; padding: 0;
+	display: inline;
+}
+
+#input {
+	float: left;
+	padding:0; margin: 0 0 0 .5em;
+}
+
+/********************  FOOTER ***************************/
+#attribution {
+	padding: 0; margin: 0 0 0 .5em;
+	float: left;
+}
+
+#nav {
+	list-style-type: none;
+	text-align: right;
+	font-size: 110%;
+	padding: 0 0 .5em 0; margin: 0 1em 0 0;
+}
+
+/********************  INSTRUCTION ***************************/
+#instruction {
+	width: 300px; font-weight: bold;
+}
+
+/************************* MAP ***************************/
+#map {
+	width: 75%;
+	margin: 0; padding: 0;
+	position: absolute; top: 91px; bottom: 0px; left: 0px;
+}
+
+/********************** LISTINGS ***************************/
+#listings {
+	width: 25%;
+	overflow:auto;
+  position: absolute; top: 91px; bottom: 0; right: 0;
+	border:2px solid gray;
+}
+
+#listings h2 {
+	text-align: center;
+	margin: 0; padding: 0.2em;
+    border-bottom: 1px solid black;
+	color: white;
+	font-size: 1.6em;
+	font-variant: small-caps;
+}
+
+#roadshow {
+	background: darkblue /*url("images/roadshow.png") no-repeat 1em*/;
+}
+
+#recommended {
+	background: maroon /*url("images/recommended") no-repeat 1em*/;
+}
+
+#music {
+	background: forestgreen /*url("images/normal.png") no-repeat 1em*/;
+}	
+
+#karaoke {
+	background: darkgoldenrod /*url("images/karaoke.png") no-repeat 1em*/;
+}
+
+#mic {
+	background: indigo /*url("images/mic.png") no-repeat 1em*/;
+}
+
+#dj {
+	background: dimgray /*url("images/dj.png") no-repeat 1em*/;
+}
+
+
+.eventList {
+    list-style-type: none;
+    margin: 0; padding: 0;
+    border: none;
+
+ 	width: 100%;
+    /*border-right: 1px solid #000;*/
+    /*padding: 0 0 1em 0;
+    margin-bottom: 1em;*/
+    /*font-family: 'Trebuchet MS', 'Lucida Grande',
+      Verdana, Lucida, Geneva, Helvetica, 
+      Arial, sans-serif;
+      background-color: #90bade;*/
+    color: #333;
+}
+
+.eventList li {
+    border-bottom: 1px solid black;
+    margin: 0; padding: 0;
+}
+
+.eventList a {
+    display: block;
+    margin: 0; padding: 5px 5px 5px 0.5em;
+    /*border-left: 10px solid #1958b7;
+    border-right: 10px solid #508fc4;
+    background-color: #2175bc;*/
+
+    color: white;
+    text-decoration: none;
+    width: auto;
+
+	cursor:pointer;
+}
+
+ul.recommended a {
+background-color:#C57563;
+}
+
+ul.roadshow a {
+background-color:#647EB5;
+}
+
+ul.music a  {
+	background-color: #669966;
+}
+
+ul.mic a {
+	background-color: mediumpurple;
+}
+
+ul.karaoke a {
+background-color:#E2C52B;
+}
+
+ul.dj a {
+	background-color: slategray;
+}
+
+.eventList a:hover{
+/*background-color:#475F42;*/
+/*filter:alpha(opacity=70);*/
+-moz-opacity:0.7;
+opacity: 0.7;
+color:black;
+}
+/*
+.eventList li a.dj {
+background-color:#80CA5D;
+}
+*/
+
+.event {
+	width:300px;
+}
+
+.venue {
+	font-weight:bold; font-size:11px; color:white;
+	text-decoration: underline;
+}
+
+.act {
+	font-size:14px;color:white /*silver*/;margin-left:1em;
+}
+
+.namedesc {
+	font-weight:bold;
+}
+
+h3 {
+margin:0px;
+font-size:16px;
+font-family:Arial;
+font-weight: bold;
+}
+
+.pointheading {
+	font-family:arial;
+}
+
+.addr {
+margin-left:.5em;	
+font-size:10px;
+color:gray;
+}
+
+.namedesc {
+background-color:#EEEEEE;
+padding:.5em;
+margin-top:3px;
+}
+
+.smalldesc {
+font-size:10px;
+}
+
+.rec {
+
+font-size:11px;
+font-style:italic;
+font-weight:bold;
+color:silver;
+
+}
+
+.dirform {
+border-top:1px solid gray;
+margin-top:3px; 
+display:none;
+}
+
+.loc {
+margin-top:0px;
+padding-top:0px;;
+margin-bottom:5px;
+font-size:11px;
+font-style:italic;
+border-bottom:1px dotted black;
+}
+
+/*#inhalt {
+width:600px;       
+  text-align: left;
+  vertical-align: middle;       
+  margin: 0px auto;
+  padding: 0px;
+  background-color: #ffffff;
+}*/
+
+.dirbubble {
+margin-top:1em;
+text-align:right;
+font-size:11px;
+font-style:italic;
+border-top:1px dotted black;
+}
+
+.dirbubble a {
+color:#6A80A3;
+}

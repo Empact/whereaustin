@@ -1,0 +1,299 @@
+/********************  GENERAL ***************************/
+
+html, body {
+  font-size: .9em;
+  font-family: Arial;
+  color:#564b47;
+  margin: 0; padding: 0;
+  min-width: 775px;
+}
+
+.mark {
+	width: 12px; height: 20px;
+}
+
+/********************  HEADER ***************************/
+
+#header {
+	margin:0; padding: 0 /*.5em .5em .5em 1em*/;
+	text-align:left; border-bottom:1px dotted gray;
+	background-color:#CCCCCC; 
+	width: auto;
+	height: 90px;
+}
+
+/* Logo not currently shown...
+#logo {
+	font-family:Trebuchet MS, Lucida Grande,Arial;
+	color:black; font-weight:bold; font-size:12px;
+	text-align:left; margin-left:.5em;
+}
+*/
+
+#key {
+	/*margin-left:1em; margin-top:5px; padding:.5em;*/
+	/*color:black; background-color:gray; border-top:3px solid black;*/
+	margin: 0; padding: 0 1em 0 0;
+	list-style-type: none;
+	text-align: right;
+}
+
+#key dd, #key dt {
+	/*margin-left:.5em; margin-right:.5em;*/
+	margin: 0; padding: 0;
+	display: inline;
+}
+
+#input {
+	float: left;
+	padding:0; margin: 0 0 0 .5em;
+}
+
+/********************  FOOTER ***************************/
+#attribution {
+	padding: 0; margin: 0 0 0 .5em;
+	float: left;
+}
+
+#nav {
+	list-style-type: none;
+	text-align: right;
+	font-size: 110%;
+	padding: 0 0 .5em 0; margin: 0 1em 0 0;
+}
+
+/********************  INSTRUCTION ***************************/
+/* Can be served statically at top of page or as map balloon */
+/*  Static
+#instruction {
+	font-weight:bold;
+	margin:.5em .5em 0 1.2em;
+}
+*/
+
+/*  Balloon */
+#instruction {
+	width: 300px; font-weight: bold;
+}
+
+/************************* MAP ***************************/
+
+#map {
+	width: 75%; height: 88%;
+	/*margin-left:1em; margin-top:1em;*/
+	/*width: 75%;*/
+	position:static; top: 0px;
+}
+
+/********************** LISTINGS ***************************/
+
+#listings {
+	/*width:270px;*/
+	/*margin:.5em; padding: .5em;*/
+	width: 25%;
+	overflow:scroll;
+  /*position: absolute; top: 91px; bottom: 0px; right: 0;*/
+  postion: static; float: right; top: 90px; height: 88%;
+	border:2px solid gray;
+}
+
+.section {
+	text-align: center;
+	padding: 0; margin: 0 0 0 0;
+    border-bottom: 1px solid black;
+	color: white;
+}
+.section h2 {
+	font-size: 1.3em;
+	font-variant: small-caps;
+}
+
+#roadshow {
+	background: darkblue url("images/roadshow.png") no-repeat 1em;
+}
+
+#recommended {
+	background: maroon url("images/recommended") no-repeat 1em;
+}
+
+#normal {
+	background: forestgreen url("images/normal.png") no-repeat 1em;
+}	
+
+#karaoke {
+	background: darkgoldenrod url("images/karaoke.png") no-repeat 1em;
+}
+
+#openmic {
+	background: indigo url("images/mic.png") no-repeat 1em;
+}
+
+#dj {
+	background: dimgray url("images/dj.png") no-repeat 1em;
+}
+
+
+.eventList {
+    list-style-type: none;
+    margin: 0; padding: 0;
+    border: none;
+
+ 	width: 100%;
+    /*border-right: 1px solid #000;*/
+    /*padding: 0 0 1em 0;
+    margin-bottom: 1em;*/
+    /*font-family: 'Trebuchet MS', 'Lucida Grande',
+      Verdana, Lucida, Geneva, Helvetica, 
+      Arial, sans-serif;
+    background-color: #90bade;*/
+    color: #333;
+}
+
+.eventList li {
+    border-bottom: 1px solid black;
+    margin: 0; padding: 0;
+}
+
+.eventList a {
+    display: block;
+    margin: 0; padding: 5px 5px 5px 0.5em;
+    /*border-left: 10px solid #1958b7;
+    border-right: 10px solid #508fc4;
+    background-color: #2175bc;*/
+
+    color: white;
+    text-decoration: none;
+    width: auto;
+
+	cursor:pointer;
+}
+
+ul.recommended a {
+background-color:#C57563;
+}
+
+ul.roadshow a {
+background-color:#647EB5;
+}
+
+ul.normal a {
+	background-color: #669966;
+}
+
+ul.mic a {
+	background-color: mediumpurple;
+}
+
+ul.karaoke a {
+background-color:#E2C52B;
+}
+
+ul.dj a {
+	background-color: slategray;
+}
+
+.eventList a:hover{
+/*background-color:#475F42;*/
+/*filter:alpha(opacity=70);*/
+-moz-opacity:0.7;
+opacity: 0.7;
+color:black;
+}
+/*
+.eventList li a.dj {
+background-color:#80CA5D;
+}
+*/
+/*html>body .eventList li a {
+                width: auto;
+                }*/
+
+
+.event {
+	width:300px;
+}
+
+.venue {
+	font-weight:bold; font-size:11px; color:white;
+	text-decoration: underline;
+}
+
+.act {
+	font-size:14px;color:white /*silver*/;margin-left:1em;
+}
+
+.namedesc {
+	font-weight:bold;
+}
+
+h3 {
+margin:0px;
+font-size:16px;
+font-family:Arial;
+font-weight: bold;
+}
+
+.pointheading {
+	font-family:arial;
+}
+
+.addr {
+margin-left:.5em;	
+font-size:10px;
+color:gray;
+}
+
+.namedesc {
+background-color:#EEEEEE;
+padding:.5em;
+margin-top:3px;
+}
+
+.smalldesc {
+font-size:10px;
+}
+
+.rec {
+
+font-size:11px;
+font-style:italic;
+font-weight:bold;
+color:silver;
+
+}
+
+.dirform {
+border-top:1px solid gray;
+margin-top:3px; 
+display:none;
+}
+
+.loc {
+margin-top:0px;
+padding-top:0px;;
+margin-bottom:5px;
+font-size:11px;
+font-style:italic;
+border-bottom:1px dotted black;
+}
+
+/*#inhalt {
+width:600px;       
+  text-align: left;
+  vertical-align: middle;       
+  margin: 0px auto;
+  padding: 0px;
+  background-color: #ffffff;
+}*/
+
+.dirbubble {
+margin-top:1em;
+text-align:right;
+font-size:11px;
+font-style:italic;
+border-top:1px dotted black;
+}
+
+.dirbubble a {
+color:#6A80A3;
+}
