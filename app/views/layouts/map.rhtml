@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
   <title>WhereAustin.com: Your source for when and where</title>
-  <!--[if lte IE 6]><%= stylesheet_link_tag 'IE' -%><![endif]-->
-  <!--<%= javascript_include_tag :defaults, 'http://maps.google.com/maps?file=api&amp;v=1&amp;key=ABQIAAAAOA4TyPDoo-3G5HLSus67ixTBGIHRvBT72mzOTCXeunnjdSwd-xQfqUlyQIJ1cc0R0RcGCrWfBoXGBA' %>-->
   <%= stylesheet_link_tag 'general', 'scaffold' %>
+  <!--[if lte IE 6]><%= stylesheet_link_tag 'IE' -%><![endif]-->
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'http://maps.google.com/maps?file=api&v=1&key=ABQIAAAAOA4TyPDoo-3G5HLSus67ixTBGIHRvBT72mzOTCXeunnjdSwd-xQfqUlyQIJ1cc0R0RcGCrWfBoXGBA' %>
 </head>
 <body>
 <div id="header">
     <ul id="nav">
-      <li><a title="Who we are, what we are, where we're going" href="http://whereaustin.com/about">About Eventing</a></li>
+      <li><a title="Who we are, what we are, where we're going" href="http://whereaustin.com/about">About WhereAustin</a></li>
       <li><a title="Questions? Comments? Ideas? We'll do our best to respond..." href="mailto:whereaustin@gmail.com">Contact Us</a></li>
       <li><a title="Doesn't everyone have one? News and Updates from WhereAustin.com" href="http://whereaustin.com/log/">Our Blog</a></li>
     </ul>
@@ -38,7 +39,11 @@
 </div>
 <![endif]-->
 
+<div id="map"></div>
+<%= javascript_include_tag 'whereaustin' %>
+
 <%= @content_for_layout %>
 
+<%= javascript_include_tag 'http://www.google-analytics.com/urchin.js', 'analytics' %>
 </body>
 </html>

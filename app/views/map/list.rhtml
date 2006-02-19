@@ -1,13 +1,17 @@
 <div id="listings">
-<% for type in @types -%>
+<% for type in @types
+     if @events[type.id].length > 0 -%>
 <h2 id="<%= type.id -%>"><%= type.name -%></h2>
 <ul class="eventList <%= type.id -%>">
   <% for event in @events[type.id] -%>
-  <li><a title="<%= event.venue.address || "" -%>">
-    <span class="venue"><%= event.venue.name %></span><br />
-    <span class="act"><%= event.name %></span></a>
-  </li>
+  <li><a title="<%=h event.venue.address || "" -%>">
+    <span class="venue"><%=h event.venue.name %></span><br />
+    <% for act in event.name.split(', ') -%>
+    <span class="act">- <%=h act %></span><br />
+    <% end -%>
+  </a></li>
   <% end -%>
 </ul>
-<% end -%>
+<%   end
+   end -%>
 </div>

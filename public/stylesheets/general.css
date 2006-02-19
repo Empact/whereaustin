@@ -134,7 +134,6 @@ html, body {
 }
 
 .eventList li {
-    border-bottom: 1px solid black;
     margin: 0; padding: 0;
 }
 
@@ -144,6 +143,7 @@ html, body {
     /*border-left: 10px solid #1958b7;
     border-right: 10px solid #508fc4;
     background-color: #2175bc;*/
+    border-bottom: 1px solid black;
 
     color: white;
     text-decoration: none;
@@ -199,7 +199,7 @@ background-color:#80CA5D;
 }
 
 .act {
-	font-size:14px;color:white /*silver*/;margin-left:1em;
+	font-size:14px;color:white;
 }
 
 .namedesc {
