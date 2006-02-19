@@ -4,7 +4,7 @@
 <h2 id="<%= type.id -%>"><%= type.name -%></h2>
 <ul class="eventList <%= type.id -%>">
   <% for event in @events[type.id] -%>
-  <li><a title="<%=h event.venue.address || "" -%>">
+  <li><a title="<%=h( [(event.venue.address || ""), unless event.time.empty? then " - " end , (event.time || "")].join )%>">
     <span class="venue"><%=h event.venue.name %></span><br />
     <% for act in event.name.split(', ') -%>
     <span class="act">- <%=h act %></span><br />

@@ -1,0 +1,15 @@
+<div style="width:300px">
+  <div class="loc">
+    <%= @event.venue.name %><br />
+    <span class="addr"><%= @event.venue.address %>
+	    <% if @event.venue.url %>
+	      [<a href="<%= @event.venue.url %>">www</a>]
+	    <% end %>
+    </span>
+  </div>
+  <span class="rec">roadshow</span><br />
+  <div class="namedesc">
+    <strong><%= @event.name %></strong>
+  </div>
+  <p class="dirbubble">[<a href="javascript:map.centerAndZoom(new GPoint(<%= @event.venue.latitude %>, <%= @event.venue.longitude %>), 1)">zoom in</a>] [<a href="<%=h "http://maps.google.com/maps?f=d&hl=en&saddr=" + CGI.escape([@event.venue.address, @event.venue.city, @event.venue.state, @event.venue.zip].join(' ') %>">directions</a>]</p>
+</div>

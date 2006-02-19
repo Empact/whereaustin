@@ -15,14 +15,12 @@ class MapController < ApplicationController
   def list
     @events = {}
     for type in TYPES
-      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, Date.today ])
-      for event in @events[type.id]
-        event.venue ||= Location.find(:first, :conditions => ["name = ?", event.location])
-      end
+      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, Date.today ]).locate!
     end
     @types = TYPES
+    markers
   end
-
+  
   def show
     @event = Event.find(params[:id])
   end
