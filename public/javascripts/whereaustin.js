@@ -46,11 +46,9 @@ wifi_low_usage_icon.image = "/images/wifi_low_usage.png";
 
 /*********** Map! ************/
 
-var markers = [];
-var htmls = [];
-var i = 0;
+var markers = {};
 
-function createMarker(point, type, html)
+function createMarker(id, point, type, html)
 {
   var icon;
   
@@ -77,17 +75,36 @@ function createMarker(point, type, html)
 	});
 	
 	// save the info we need to use later for the table
-	markers[i] = marker;
-	htmls[i] = html;
-	
-	i++;
+	markers[id] = marker;
+
 	return marker;
 }
 
-function click(i) {
-    markers[i].openInfoWindowHtml(htmls[i]);
+function pop(id) {
+    GEvent.trigger(markers[id], 'click');
 }
 
+function overlayMap(xml)
+{
+	var request = GXmlHttp.create();
+	request.open('GET', xml, true);
+	request.onreadystatechange = function() {
+	  if (request.readyState == 4) {
+			var xmlDoc = request.responseXML;
+			var markers = xmlDoc.documentElement.getElementsByTagName("marker");
+			for (var i = 0; i < markers.length; i++) {
+			  var id = markers[i].getAttribute("id");
+		  	var point = new GPoint(parseFloat(markers[i].getAttribute("lng")),
+								               parseFloat(markers[i].getAttribute("lat")));
+		  	var type = markers[i].getAttribute("type");
+		  	var html = markers[i].getAttribute("info");
+		  	var marker = createMarker(id, point, type, html);
+		  	map.addOverlay(marker);
+			}
+	  }
+	}
+	request.send(null);
+}
 
 // Center the map on 6th and Congress
 var map = new GMap(document.getElementById("map"));
@@ -105,17 +122,17 @@ request.onreadystatechange = function() {
 		var xmlDoc = request.responseXML;
 		var markers = xmlDoc.documentElement.getElementsByTagName("marker");
 		for (var i = 0; i < markers.length; i++) {
+		  var id = markers[i].getAttribute("id");
 	  	var point = new GPoint(parseFloat(markers[i].getAttribute("lng")),
 							               parseFloat(markers[i].getAttribute("lat")));
 	  	var type = markers[i].getAttribute("type");
 	  	var html = markers[i].getAttribute("info");
-	  	var marker = createMarker(point, type, html);
+	  	var marker = createMarker(id, point, type, html);
 	  	map.addOverlay(marker);
 		}
   }
 }
 request.send(null);
-
 
 /*
 

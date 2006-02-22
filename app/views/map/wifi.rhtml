@@ -1,0 +1,15 @@
+<div id="listings" onload="overlaymap('wifi/markers')">
+<% for type in @types
+     if @events[type.id].length > 0 -%>
+<h2 id="<%= type.id -%>"><%= type.name -%></h2>
+<ul class="eventList <%= type.id -%>">
+  <% for event in @events[type.id] -%>
+  <li><a title="<%= h(event.address || "") %>"
+         onclick="pop(<%= event.id %>)">
+    <span class="venue"><%=h event.location %></span><br />
+  </a></li>
+  <% end -%>
+</ul>
+<%   end
+   end -%>
+</div>

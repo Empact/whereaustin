@@ -1,10 +1,11 @@
-<div id="listings">
+<div id="listings" onload="overlayMap('event/markers')">
 <% for type in @types
      if @events[type.id].length > 0 -%>
 <h2 id="<%= type.id -%>"><%= type.name -%></h2>
 <ul class="eventList <%= type.id -%>">
   <% for event in @events[type.id] -%>
-  <li><a title="<%=h( [(event.venue.address || ""), unless event.time.empty? then " - " end , (event.time || "")].join )%>">
+  <li><a title="<%= h(event.venue.address || "") %>"
+         onclick="pop(<%= event.id %>)">
     <span class="venue"><%=h event.venue.name %></span><br />
     <% for act in event.name.split(', ') -%>
     <span class="act">- <%=h act %></span><br />

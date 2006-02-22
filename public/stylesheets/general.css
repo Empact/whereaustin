@@ -95,30 +95,88 @@ html, body {
 	font-variant: small-caps;
 }
 
-#roadshow {
-	background: darkblue /*url("images/roadshow.png") no-repeat 1em*/;
+#recommended {
+	background: maroon;
 }
 
-#recommended {
-	background: maroon /*url("images/recommended") no-repeat 1em*/;
+ul.recommended a {
+background-color:#C57563;
+}
+
+#roadshow {
+	background: darkblue;
+}
+
+ul.roadshow a {
+background-color:#647EB5;
 }
 
 #music {
-	background: forestgreen /*url("images/normal.png") no-repeat 1em*/;
+	background: forestgreen;
 }	
 
+ul.music a  {
+	background-color: #669966;
+}
+
 #karaoke {
-	background: darkgoldenrod /*url("images/karaoke.png") no-repeat 1em*/;
+	background: darkgoldenrod;
+}
+
+ul.karaoke a {
+background-color:#E2C52B;
 }
 
 #mic {
-	background: indigo /*url("images/mic.png") no-repeat 1em*/;
+	background: indigo;
+}
+
+ul.mic a {
+	background-color: mediumpurple;
 }
 
 #dj {
-	background: dimgray /*url("images/dj.png") no-repeat 1em*/;
+	background: dimgray;
 }
 
+ul.dj a {
+	background-color: slategray;
+}
+
+/************************************************
+       WIFI MARKERS
+ ************************************************/
+#online {
+  background: forestgreen;
+}
+
+.online a {
+	background-color: #669966;
+}
+
+#flakey {
+  background: darkgoldenrod;
+}
+
+.flakey a {
+  background-color:#E2C52B;
+}
+
+#offline {
+  background: maroon;
+}
+
+.offline a {
+  background-color:#C57563;
+}
+
+#lowusage {
+  background: darkblue;
+}
+
+.lowusage {
+  background-color:#647EB5;
+}
 
 .eventList {
     list-style-type: none;
@@ -153,30 +211,6 @@ html, body {
     width: auto;
 
 	cursor:pointer;
-}
-
-ul.recommended a {
-background-color:#C57563;
-}
-
-ul.roadshow a {
-background-color:#647EB5;
-}
-
-ul.music a  {
-	background-color: #669966;
-}
-
-ul.mic a {
-	background-color: mediumpurple;
-}
-
-ul.karaoke a {
-background-color:#E2C52B;
-}
-
-ul.dj a {
-	background-color: slategray;
 }
 
 .eventList a:hover{
@@ -232,7 +266,7 @@ margin:3px;
 font-weight: bold;
 }
 
-p.smalldesc{
+.smalldesc{
 margin: 0;
 padding: 2px;
 font-size: 10px;

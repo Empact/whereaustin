@@ -1,24 +1,36 @@
 class MapController < ApplicationController
   Type  = Struct.new(:id, :name)
-  TYPES = [Type.new("recommended", "Top Events"),
-           Type.new("roadshow",    "Road Show Events"),
-           Type.new("music",       "Live Music Events"),
-           Type.new("dj",          "DJ Events"),
-           Type.new("mic",         "Open Mic Events"),
-           Type.new("karaoke",     "Karaoke Events")]
-  
+  @@music_types = [Type.new("recommended", "Top Events"),
+                  Type.new("roadshow",    "Road Show Events"),
+                  Type.new("music",       "Live Music Events"),
+                  Type.new("dj",          "DJ Events"),
+                  Type.new("mic",         "Open Mic Events"),
+                  Type.new("karaoke",     "Karaoke Events")]
+  @@wifi_types = [Type.new("online",      "Online"),
+                  Type.new("flakey",      "Flakey"),
+                  Type.new("offline",     "Offline"),
+                  Type.new("lowusage",    "Low-Usage")]
+
+
   def index
-    list
-    render :action => 'list'
+    music
+    render :action => 'music'
   end
 
-  def list
+  def music
     @events = {}
-    for type in TYPES
+    for type in @@music_types
       @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, Date.today ]).locate!
     end
-    @types = TYPES
-    markers
+    @types = @@music_types
+  end
+  
+  def wifi
+    @events = {}
+    for type in @@wifi_types
+      @events[type.id] = Wifi.find(:all, :conditions => ["status = ?", type.id])
+    end
+    @types = @@wifi_types
   end
   
   def show
