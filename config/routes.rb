@@ -4,11 +4,14 @@ ActionController::Routing::Routes.draw do |map|
   
   # Here's a sample route:
   map.connect 'wifi', :controller => 'map', :action => 'wifi'
+  map.connedt 'event/markers/:date', :controller => 'event', :action => 'markers'
+  # map.connect 'event/markers/:date', :controller => 'event', :action => 'markers', :defaults => { :date => Date.today}, :requirements => { :date => /(19|20)\d\d\-[01]\d\-[0-3]\d/}
   # Keep in mind you can assign values other than :controller and :action
 
   # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
   map.connect '', :controller => "map"
+  map.connect ':date', :controller => "map"
 
   # Allow downloading Web Service WSDL as a file with an extension
   # instead of a file named 'wsdl'

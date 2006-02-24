@@ -18,9 +18,10 @@ class MapController < ApplicationController
   end
 
   def music
+    date = params[:date] || Date.today
     @events = {}
     for type in @@music_types
-      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, Date.today ]).locate!
+      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, date ]).locate!
     end
     @types = @@music_types
   end

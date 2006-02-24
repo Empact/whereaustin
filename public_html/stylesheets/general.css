@@ -24,9 +24,15 @@ html, body {
 #header {
 	margin:0; padding: 0;
 	text-align:left; border-bottom:1px dotted gray;
-	background-color:#CCCCCC; 
+	background-color:#333; 
 	width:auto;
-	height: 90px;
+	padding:1em;
+}
+
+#header a {
+color:white;
+text-decoration:none;
+border-bottom:1px dotted gray;
 }
 
 /* Logo not currently shown...
@@ -75,15 +81,15 @@ html, body {
 #map {
 	width: 75%;
 	margin: 0; padding: 0;
-	position: absolute; top: 91px; bottom: 0px; left: 0px;
+	position: absolute; top: 51px; bottom: 0px; left: 0px;
 }
 
 /********************** LISTINGS ***************************/
 #listings {
 	width: 25%;
 	overflow:auto;
-  position: absolute; top: 91px; bottom: 0; right: 0;
-	border:2px solid gray;
+	 position: absolute; top: 51px; bottom: 0; right: 0;
+	border-left:5px solid #333;
 }
 
 #listings h2 {
@@ -96,15 +102,19 @@ html, body {
 }
 
 #recommended {
-	background: maroon;
+	background: #333;
+color:#C57563;
+
 }
 
 ul.recommended a {
+list-style:none;
 background-color:#C57563;
 }
 
 #roadshow {
-	background: darkblue;
+	background:#333; 
+color:#647EB5;
 }
 
 ul.roadshow a {
@@ -112,7 +122,8 @@ background-color:#647EB5;
 }
 
 #music {
-	background: forestgreen;
+	background: #333;
+color:#669966;
 }	
 
 ul.music a  {
@@ -141,6 +152,14 @@ ul.mic a {
 
 ul.dj a {
 	background-color: slategray;
+}
+
+.category {
+padding:4px;
+display:block;
+color: #e0e0e0;
+font-weight:bold;
+font-size:14px;
 }
 
 /************************************************
@@ -231,12 +250,18 @@ background-color:#80CA5D;
 }
 
 .venue {
-	font-weight:bold; font-size:11px; color:white;
-	text-decoration: underline;
+	font-weight:bold;
+	font-size:13px; 
+	color:#e0e0e0;
+
+	padding:2px;
 }
 
 .act {
-	font-size:14px;color:white;
+list-style-type: none;
+
+	font-size:12px;
+	color:silver;
 }
 
 h3 {

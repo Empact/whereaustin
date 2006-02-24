@@ -1,6 +1,7 @@
 class EventController < ApplicationController
   def markers
-    #@headers["Content-Type"] = "application/xml"
-    @markers = Event.find(:all, :conditions => ["date = ?", Date.today], :order => "id ASC", :readonly => true ).locate!
+    date = params[:date] || Date.today
+    @headers["Content-Type"] = "application/xml"
+    @markers = Event.find(:all, :conditions => ["date = ?", date], :order => "id ASC" ).locate!
   end
 end
