@@ -1,5 +1,3 @@
-var debug = false;
-
 /*********  Icons! **************/
 
 // Base Icon, bearing the common characteristics of all markers
@@ -48,6 +46,16 @@ wifi_low_usage_icon.image = "/images/wifi_low_usage.png";
 
 /*********** Map! ************/
 
+function say(message)
+{
+    var debug = false;
+    if (!debug){
+        return
+    }
+    alert(message);
+}
+
+
 var markers = {};
 
 function createMarker(id, point, type, html)
@@ -92,16 +100,16 @@ function getSelect(s) {
 
 function overlayMap(xml)
 {
-  //alert(xml);
+  say(xml);
   var request = GXmlHttp.create();
 	request.open('GET', xml, true);
 	request.onreadystatechange = function() {
 	  if (request.readyState == 4) {
- 			if (debug){alert("Adding Markers...")}
+ 			say("Adding Markers...");
 			var xmlDoc = request.responseXML;
 			var new_markers = xmlDoc.documentElement.getElementsByTagName("marker");
 			if (new_markers.length > 0 && markers.length > 0){
-			  if (debug){alert("Removing old markers")}
+			  say("Removing old markers");
 			  map.clearOverlays();
 			}
 			for (var i = new_markers.length - 1; i >= 0; i--) {
@@ -113,7 +121,7 @@ function overlayMap(xml)
 		  	var html = marker.getAttribute("info");
 		  	map.addOverlay(createMarker(id, point, type, html));
 			}
-			if (debug){alert("Finished Adding Markers")}
+			say("Finished Adding Markers");
 	  }
 	}
 	request.send(null);
@@ -127,4 +135,3 @@ map.addControl(new GLargeMapControl());
 map.addControl(new GMapTypeControl());
 map.centerAndZoom(centerAustin, 4);
 map.openInfoWindowHtml(centerAustin, instructions);
-
