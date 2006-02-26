@@ -1,3 +1,7 @@
+
+var debug = false;
+var instr = true; // Set false after first page load
+
 /*********  Icons! **************/
 
 // Base Icon, bearing the common characteristics of all markers
@@ -48,11 +52,9 @@ wifi_low_usage_icon.image = "/images/wifi_low_usage.png";
 
 function say(message)
 {
-    var debug = false;
-    if (!debug){
-        return
+    if (debug){
+        alert(message);
     }
-    alert(message);
 }
 
 
@@ -60,8 +62,7 @@ var markers = {};
 
 function createMarker(id, point, type, html)
 {
-  var icon;
-  
+  var icon = null
 	switch(type){
 	// MUSIC Icons
 	case "recommended": icon = recommended_icon;  break;
@@ -108,11 +109,11 @@ function overlayMap(xml)
  			say("Adding Markers...");
 			var xmlDoc = request.responseXML;
 			var new_markers = xmlDoc.documentElement.getElementsByTagName("marker");
-			if (new_markers.length > 0 && markers.length > 0){
+			if (!instr){
 			  say("Removing old markers");
 			  map.clearOverlays();
 			}
-			for (var i = new_markers.length - 1; i >= 0; i--) {
+			for (var i = 0; i < new_markers.length; i++) {
 			  var marker = new_markers[i];
 			  var id = marker.getAttribute("id");
 		  	var point = new GPoint(parseFloat(marker.getAttribute("lng")),
@@ -122,6 +123,7 @@ function overlayMap(xml)
 		  	map.addOverlay(createMarker(id, point, type, html));
 			}
 			say("Finished Adding Markers");
+			instr = false; // TODO: This hack protects the instr until the page is switched.  Can do better...
 	  }
 	}
 	request.send(null);

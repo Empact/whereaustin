@@ -1,54 +1,18 @@
-<body onload="overlayMap('http://whereaustin.com/event/markers/<%= params[:date] %>')">
-	<div id="header">
-	    <!--<ul id="nav">
-	      <li><a title="Who we are, what we are, where we're going" href="http://whereaustin.com/about">About WhereAustin</a></li>
-	      <li><a title="Questions? Comments? Ideas? We'll do our best to respond..." href="mailto:whereaustin@gmail.com">Contact Us</a></li>
-	      <li><a title="Doesn't everyone have one? News and Updates from WhereAustin.com" href="http://whereaustin.com/log/">Our Blog</a></li>
-	    </ul>-->
-	    <span class="alert"><%= flash[:notice] %></span>
-	    <!-- Selection of type here? -->
-	    <dl id="key">
-	      <dt><img src="<%= image_path('recommended') -%>" alt="Recommended Event Marker" /></dt>
-	        <dd><a href="#recommended">recommended</a></dd>
-	      <dt><img src="<%= image_path('roadshow') -%>" alt="Roadshow Event Marker" /></dt>
-	        <dd><a href="#roadshow">roadshow</a></dd>
-	      <dt><img src="<%= image_path('music') -%>" alt="Live Music Event Marker" /></dt>
-	        <dd><a href="#music">live music</a></dd>
-	      <dt><img src="<%= image_path('dj') -%>" alt="DJ Event Marker" /></dt>
-	        <dd><a href="#dj">dj</a></dd>
-	      <dt><img src="<%= image_path('mic') -%>" alt="Open Mic Event Marker" /></dt>
-	        <dd><a href="#mic">open mic</a></dd>
-	      <dt><img src="<%= image_path('karaoke') -%>" alt="Karaoke Event Marker" /></dt>
-	        <dd><a href="#karaoke">karaoke</a></dd>
-	    </dl>
-	</div>
-	<!--[if gt IE 6]>
-	<div class="alert">
-	  <p>Well you seem to be using Internet Explorer 7 or better, which we don't support, yet.
-	  <a href="mailto:whereaustin@gmail.com">Let us know</a> you want us to, and maybe we'll hurry up!</p>
-	</div>
-	<![endif]-->
-	
-	<div id="map"></div>
-	<%= javascript_include_tag 'whereaustin' %>
-	
-	<div id="listings">
-	<% for type in @types
-	     if @events[type.id].length > 0 -%>
-	<h2 id="<%= type.id -%>"><%= type.name -%></h2>
-	<ul class="eventList <%= type.id -%>">
-	  <% for event in @events[type.id] -%>
-	  <li><a title="<%= h(event.venue.address || "") %>"
-	         onclick="pop(<%= event.id %>)">
-	    <span class="venue"><%=h event.venue.name %></span><br />
-	    <% for act in event.name.split(', ') -%>
-	    <span class="act">- <%=h act %></span><br />
-	    <% end -%>
-	  </a></li>
-	  <% end -%>
-	</ul>
-	<%   end
-	   end -%>
-	</div>
-<%= javascript_include_tag 'http://www.google-analytics.com/urchin.js', 'analytics' %>
-</body>	
+<%= javascript_tag "overlayMap('http://whereaustin.com/event/markers/" + @now + "')" %>
+
+<% for type in @types
+     if @events[type.id].length > 0 -%>
+<h2 id="<%= type.id -%>"><%= type.name -%></h2>
+<ul class="eventList <%= type.id -%>">
+  <% for event in @events[type.id] -%>
+  <li><a title="<%= h(event.venue.address || "") %>"
+         onclick="pop(<%= event.id %>)">
+    <span class="venue"><%=h event.venue.name %></span><br />
+    <% for act in event.name.split(', ') -%>
+    <span class="act">- <%=h act %></span><br />
+    <% end -%>
+  </a></li>
+  <% end -%>
+</ul>
+<%   end
+   end -%>

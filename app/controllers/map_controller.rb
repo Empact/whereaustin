@@ -13,17 +13,22 @@ class MapController < ApplicationController
 
 
   def index
-    music
+    music(Date.today)
     render :action => 'music'
   end
 
-  def music
-    date = params[:date] || Date.today
+  def new_music
+    music(@params[:date])
+    render :layout => false, :action => 'music'
+  end
+  
+  def music(date)
+    @now = date.to_s
     @events = {}
     for type in @@music_types
-      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, date ]).locate!
+      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, @now ]).locate!
     end
-    @types = @@music_types
+    @types = @@music_types 
   end
   
   def wifi

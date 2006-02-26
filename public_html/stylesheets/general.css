@@ -1,10 +1,7 @@
 /********************  GENERAL ***************************/
-
-* {
-  font-family: Arial;
-}
-
+	
 html, body {
+  font-family: Arial;
   font-size: 12px;
   color:#564b47;
   margin: 0; padding: 0;
@@ -22,11 +19,16 @@ html, body {
 /********************  HEADER ***************************/
 
 #header {
-	margin:0; padding: 0;
-	text-align:left; border-bottom:1px dotted gray;
+  position: absolute; top: 0; left: 0; right: 0;
+  display: inline;
+	border-bottom:1px dotted gray;
 	background-color:#333; 
-	width:auto;
 	padding:1em;
+}
+
+#header p, #header form {
+    color: white;
+  display: inline;
 }
 
 #header a {
@@ -35,18 +37,11 @@ text-decoration:none;
 border-bottom:1px dotted gray;
 }
 
-/* Logo not currently shown...
-#logo {
-	font-family:Trebuchet MS, Lucida Grande,Arial;
-	color:black; font-weight:bold; font-size:12px;
-	text-align:left; margin-left:.5em;
-}
-*/
-
 #key {
 	margin: 0; padding: 0 1em 0 0;
 	list-style-type: none;
 	text-align: right;
+  position: absolute; right: .1em; top: 1em;
 }
 
 #key dd, #key dt {
@@ -81,14 +76,14 @@ border-bottom:1px dotted gray;
 #map {
 	width: 75%;
 	margin: 0; padding: 0;
-	position: absolute; top: 51px; bottom: 0px; left: 0px;
+	position: absolute; top: 50px; bottom: 0px; left: 0px;
 }
 
 /********************** LISTINGS ***************************/
 #listings {
 	width: 25%;
 	overflow:auto;
-	 position: absolute; top: 51px; bottom: 0; right: 0;
+	 position: absolute; top: 50px; bottom: 0; right: 0;
 	border-left:5px solid #333;
 }
 
