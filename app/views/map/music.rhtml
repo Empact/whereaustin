@@ -1,3 +1,5 @@
+<% benchmark "Music Listings and Markers" do %>
+
 <%= javascript_tag "overlayMap('http://whereaustin.com/event/markers/" + @now + "')" %>
 
 <% for type in @types
@@ -15,4 +17,6 @@
   <% end -%>
 </ul>
 <%   end
-   end -%>
+   end   -%>
+   
+<% end %>

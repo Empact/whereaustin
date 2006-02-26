@@ -1,0 +1,44 @@
+xml.instruct!
+
+marker = @marker
+
+xml.marker( "id" => marker.id,
+          "info" => h(['<div style="width:300px"><div class="loc">',
+          				# Location Name + URL
+                          if marker.venue #.url.empty?
+	                          marker.venue.name
+                      	  else
+                      	  	['<a href="', marker.venue.url, '">', marker.venue.name, '</a>'].join
+                      	  end,
+                    # Location Addr
+                         ' - <a href="http://maps.google.com/maps?f=q&hl=en&q=',
+                         CGI.escape([marker.venue.address,
+                                     marker.venue.city,
+                                     marker.venue.state,
+                                     marker.venue.zip].join(", ")),
+                        '" class="addr">',
+                          marker.venue.address,
+                         '</a></div>',
+                    # Event Name
+                         '<div class="eventdesc"><span class="eventname">',
+                         marker.name,
+                         '</span>',
+                    # Event Time
+                         unless marker.time.empty?
+                           [' <span class="time">(',
+                             marker.time,
+                            ')</span>'].join
+                         end,
+                    # Event Icon	                         
+                         ' - <span class="rec">',
+                         marker.icon,
+                         '</span>',
+                    # Description
+                         unless marker.description.empty?
+                         	 ['<p class="smalldesc">', marker.description.delete("[]"), '</p>'].join
+                         end,
+                    # Links
+                         '</div><div class="dirbubble">[<a href="javascript:map.centerAndZoom(new GPoint(',
+                         [marker.venue.longitude,
+                          marker.venue.latitude].join(', '),
+                         '), map.getZoomLevel() - 1)">zoom in</a>]</div></div>'].join))

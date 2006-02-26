@@ -1,5 +1,5 @@
 class Location < ActiveRecord::Base
-  has_many :events
+  has_many :events, :order => 'date DESC'
   
   def find(*args)
     results = super.find(*args)
