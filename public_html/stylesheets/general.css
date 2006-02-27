@@ -19,7 +19,7 @@ html, body {
 /********************  HEADER ***************************/
 
 #header {
-  position: absolute; top: 0; left: 0; right: 0;
+  position: absolute; top: 0; left: 0; right: 0; height: 49px;
   display: inline;
 	border-bottom:1px dotted gray;
 	background-color:#333; 
@@ -88,18 +88,16 @@ border-bottom:1px dotted gray;
 }
 
 #listings h2 {
+	background:#333;
 	text-align: center;
 	margin: 0; padding: 0.2em;
     border-bottom: 1px solid black;
-	color: white;
 	font-size: 1.6em;
 	font-variant: small-caps;
 }
 
 #recommended {
-	background: #333;
-color:#C57563;
-
+  color:#C57563;
 }
 
 ul.recommended a {
@@ -108,8 +106,7 @@ background-color:#C57563;
 }
 
 #roadshow {
-	background:#333; 
-color:#647EB5;
+  color:#647EB5;
 }
 
 ul.roadshow a {
@@ -117,7 +114,6 @@ background-color:#647EB5;
 }
 
 #music {
-	background: #333;
 color:#669966;
 }	
 
@@ -126,27 +122,30 @@ ul.music a  {
 }
 
 #karaoke {
-	background: darkgoldenrod;
+	color: darkgoldenrod;
 }
 
 ul.karaoke a {
-background-color:#E2C52B;
+	background-color: darkgoldenrod;
+/*background-color:#E2C52B;*/
 }
 
 #mic {
-	background: indigo;
+	color: indigo;
 }
 
 ul.mic a {
-	background-color: mediumpurple;
+	background-color: indigo;
+/*	background-color: mediumpurple;*/
 }
 
 #dj {
-	background: dimgray;
+	color: dimgray;
 }
 
 ul.dj a {
-	background-color: slategray;
+	background-color: dimgray;
+/*	background-color: slategray;*/
 }
 
 .category {
