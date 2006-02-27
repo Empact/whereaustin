@@ -55,6 +55,7 @@
 <%= @content_for_layout %>
 </div>
 
-<%= javascript_include_tag 'http://www.google-analytics.com/urchin.js', 'analytics' %>
+<%= javascript_include_tag 'http://www.google-analytics.com/urchin.js' %>
+<%= javascript_tag         '_uacct = "UA-197353-2";urchinTracker();'  %>
 </body>	
 </html>
