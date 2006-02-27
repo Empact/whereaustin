@@ -9,9 +9,9 @@
   <% for event in @events[type.id] -%>
   <li><a title="<%= h(event.venue.address || "") %>"
          onclick="pop(<%= event.id %>)">
-    <span class="venue"><%=h event.venue.name %></span><br />
+    <span class="venue"><%=h Iconv.conv("UTF-8", "Windows-1252", event.venue.name) %></span><br />
     <% for act in event.name.split(', ') -%>
-    <span class="act">- <%=h act %></span><br />
+    <span class="act">- <%=h Iconv.conv("UTF-8", "Windows-1252", act) %></span><br />
     <% end -%>
   </a></li>
   <% end -%>

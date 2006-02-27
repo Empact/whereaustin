@@ -26,8 +26,7 @@ class MapController < ApplicationController
     @now = date.to_s
     @events = {}
     for type in @@music_types
-      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, @now ],
-                                          :include => [:venue]).locate!
+      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, @now ])
     end
     @types = @@music_types 
   end

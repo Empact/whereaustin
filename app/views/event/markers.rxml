@@ -11,20 +11,20 @@ xml.markers do
 	                          if marker.venue.url.empty?
 		                          marker.venue.name
 	                      	  else
-	                      	  	['<a href="', marker.venue.url, '">', marker.venue.name, '</a>'].join
+	                      	  	['<a href="', marker.venue.url, '">', Iconv.conv("UTF-8", "Windows-1252", marker.venue.name), '</a>'].join
 	                      	  end,
 	                    # Location Addr
 	                         ' - <a href="http://maps.google.com/maps?f=q&hl=en&q=',
-	                         CGI.escape([marker.venue.address,
+	                         URI.escape([marker.venue.address,
 	                                     marker.venue.city,
 	                                     marker.venue.state,
 	                                     marker.venue.zip].join(", ")),
 	                        '" class="addr">',
-	                          marker.venue.address,
+	                          URI.unescape(marker.venue.address),
 	                         '</a></div>',
 	                    # Event Name
 	                         '<div class="eventdesc"><span class="eventname">',
-	                         marker.name,
+	                         Iconv.conv("UTF-8", "Windows-1252", marker.name),
 	                         '</span>',
 	                    # Event Time
 	                         unless marker.time.empty?
