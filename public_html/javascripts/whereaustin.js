@@ -1,6 +1,7 @@
 
+var loading = false;
 var debug = false;
-var instr = true; // Set false after first page load
+var instr = true; // Set to false after first page load
 
 /*********  Icons! **************/
 
@@ -102,17 +103,16 @@ function getSelect(s) {
 function overlayMap(xml)
 {
   say(xml);
-  var request = GXmlHttp.create();
+  say("Removing old markers");
+	map.clearOverlays();
+	
+	var request = GXmlHttp.create();
 	request.open('GET', xml, true);
 	request.onreadystatechange = function() {
 	  if (request.readyState == 4) {
  			say("Adding Markers...");
 			var xmlDoc = request.responseXML;
 			var new_markers = xmlDoc.documentElement.getElementsByTagName("marker");
-			if (!instr){
-			  say("Removing old markers");
-			  map.clearOverlays();
-			}
 			for (var i = 0; i < new_markers.length; i++) {
 			  var marker = new_markers[i];
 			  var id = marker.getAttribute("id");
@@ -123,17 +123,30 @@ function overlayMap(xml)
 		  	map.addOverlay(createMarker(id, point, type, html));
 			}
 			say("Finished Adding Markers");
-			instr = false; // TODO: This hack protects the instr until the page is switched.  Can do better...
 	  }
 	}
 	request.send(null);
+	if (instr){
+		setTimeout("map.openInfoWindowHtml(centerAustin, '<p id=\"instruction\">Click on the list or the map\\'s markers to see what is going on in Austin.</p>');",3300);
+		instr = false;
+	}
 }
 
 // Center the map on 6th and Congress
 var map = new GMap(document.getElementById("map"));
-var centerAustin = new GPoint(-97.742883, 30.268208);
-var instructions = '<p id=\"instruction\">Click on the list or the map\'s markers to see what is going on in Austin.</p>';
+GEvent.addListener(map, 'clearoverlays', function() {
+  map.openInfoWindowHtml(centerAustin, '<p id="loading" style="width: 150px;"><img src="http://whereaustin.com/images/spinner.gif" alt="Loading..." /> Hang on a sec...</p>')
+  loading = true;
+});
+GEvent.addListener(map, 'addoverlay', function() {
+	if (loading){
+		map.closeInfoWindow();
+		loading = false;
+	}
+});
 map.addControl(new GLargeMapControl());
 map.addControl(new GMapTypeControl());
+GEvent.trigger(map, 'clearoverlays');
+
+var centerAustin = new GPoint(-97.742883, 30.268208);
 map.centerAndZoom(centerAustin, 4);
-map.openInfoWindowHtml(centerAustin, instructions);

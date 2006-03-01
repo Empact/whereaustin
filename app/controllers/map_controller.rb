@@ -26,15 +26,16 @@ class MapController < ApplicationController
     @now = date.to_s
     @events = {}
     for type in @@music_types
-      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, @now ])
+      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, @now ],
+                                          :include => :venue)
     end
     @types = @@music_types 
   end
   
   def wifi
-    @events = {}
+    @wifis = {}
     for type in @@wifi_types
-      @events[type.id] = Wifi.find(:all, :conditions => ["status = ?", type.id])
+      @wifis[type.id] = Wifi.find(:all, :conditions => ["status = ?", type.id])
     end
     @types = @@wifi_types
   end

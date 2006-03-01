@@ -1,4 +1,6 @@
-<div id="listings" onload="overlaymap('wifi/markers')">
+<%= javascript_tag "overlayMap('http://whereaustin.com/wifi/markers/')" %>
+
+<div id="listings">
 <% for type in @types
      if @events[type.id].length > 0 -%>
 <h2 id="<%= type.id -%>"><%= type.name -%></h2>
