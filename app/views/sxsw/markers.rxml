@@ -1,0 +1,49 @@
+xml.instruct!
+
+xml.markers do
+	for venue_name in @markers.keys
+	  venue = @markers[venue_name][0].venue
+    xml.marker( "id" => venue.id,
+               "lat" => venue.latitude,
+               "lng" => venue.longitude,
+              "info" => h(['<div style="width: 400px;"><div class="loc">',
+              				# Location Name + URL
+	                          if venue.url.empty?
+		                          Iconv.conv("UTF-8", "Windows-1252", venue.name)
+	                      	  else
+	                      	  	['<a href="', venue.url, '">', Iconv.conv("UTF-8", "Windows-1252", venue.name), '</a>'].join
+	                      	  end,
+	                    # Location Addr
+	                         ' - <a href="http://maps.google.com/maps?f=q&hl=en&q=',
+	                         URI.escape([venue.address, venue.city,
+	                                     venue.state, venue.zip].join(", ")),
+	                        '" class="addr">',
+	                          URI.unescape(venue.address),
+	                         '</a></div>',
+	                         '<div class="eventdesc">',
+	                         @markers[venue_name].map do |act|
+			                         [
+			                # Event Time
+			                         unless act.performancetime.empty?
+			                           [' <span class="time">(',
+			                             act.performancetime,
+			                            ')</span>'].join
+			                         end,
+	                    # Event Name
+	                            ' <span class="eventname">',
+			                         Iconv.conv("UTF-8", "Windows-1252", act.name),
+			                         '</span>',
+			               
+			                # Description
+			                         unless act.description.empty?
+			                         	 ['<p class="smalldesc">', marker.description.delete("[]"), '</p>'].join
+			                         end,
+			                         '<br />'].join()
+			                      end,
+	                    # Links
+	                         '</div><div class="dirbubble">[<a href="javascript:map.centerAndZoom(new GPoint(',
+	                         [venue.longitude,
+	                          venue.latitude].join(', '),
+	                         '), map.getZoomLevel() - 1)">zoom in</a>]</div></div>'].join))
+	end
+end

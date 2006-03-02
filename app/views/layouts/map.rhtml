@@ -18,27 +18,16 @@
     </ul>-->
     <span class="alert"><%= flash[:notice] %></span>
     <p>Showing music events occurring:</p>
-    <%  date_options = options_for_select([['Today', Date.today], ['Tomorrow', Date.today + 1]].concat(
-                                              Array.new(6).fill(0..5) {|i| [Date::DAYNAMES[(Date.today + i+2).wday], Date.today + i + 2]}
-                                              ), @params[:date] || Date.today) %>
-    <%= form_remote_tag :update => "listings", :url => { :action => :new_music }, :class => "select" %>
-    <%= select_tag :date, date_options,
+    <%= form_remote_tag :update => "listings", :url => { :action => @my_action }, :class => "select" %>
+    <%= select_tag :date, options_for_select(@date_options, @params[:date] || Date.today),
                    :onchange => "document.getElementById('update').click()" %>
     <%= submit_tag "Update", :id => "update", :style => "display: none;" %>
     <%= end_form_tag %>
     <dl id="key">
-      <dt><img src="<%= image_path('recommended') -%>" alt="Recommended Event Marker" /></dt>
-        <dd><a href="#recommended">recommended</a></dd>
-      <dt><img src="<%= image_path('roadshow') -%>" alt="Roadshow Event Marker" /></dt>
-        <dd><a href="#roadshow">roadshow</a></dd>
-      <dt><img src="<%= image_path('music') -%>" alt="Live Music Event Marker" /></dt>
-        <dd><a href="#music">live music</a></dd>
-      <dt><img src="<%= image_path('dj') -%>" alt="DJ Event Marker" /></dt>
-        <dd><a href="#dj">dj</a></dd>
-      <dt><img src="<%= image_path('mic') -%>" alt="Open Mic Event Marker" /></dt>
-        <dd><a href="#mic">open mic</a></dd>
-      <dt><img src="<%= image_path('karaoke') -%>" alt="Karaoke Event Marker" /></dt>
-        <dd><a href="#karaoke">karaoke</a></dd>
+      <% for key, value in @keys %>
+      <dt><%= key %></dt>
+        <dd><%= value %></dd>
+      <% end %>
     </dl>
 </div>
 <!--[if gt IE 6]>

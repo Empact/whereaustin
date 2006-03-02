@@ -1,8 +1,3 @@
-
-var loading = false;
-var debug = false;
-var instr = true; // Set to false after first page load
-
 /*********  Icons! **************/
 
 // Base Icon, bearing the common characteristics of all markers
@@ -51,6 +46,12 @@ wifi_low_usage_icon.image = "/images/wifi_low_usage.png";
 
 /*********** Map! ************/
 
+
+var loading = false;
+var debug = false;
+var instr = true; // Set to false after first page load
+
+
 function say(message)
 {
     if (debug){
@@ -58,12 +59,9 @@ function say(message)
     }
 }
 
-
-var markers = {};
-
-function createMarker(id, point, type, html)
+function getIcon(type)
 {
-  var icon = null
+	var icon;
 	switch(type){
 	// MUSIC Icons
 	case "recommended": icon = recommended_icon;  break;
@@ -78,12 +76,36 @@ function createMarker(id, point, type, html)
 	case "offline":     icon = wifi_offline_icon; break;
 	case "lowusage":    icon = wifi_low_usage_icon; break;
 	default:
-	    alert(type);
+	    icon = music_icon; say(type);
 	}
-	
+	return icon;
+}
+
+
+var markers = {};
+
+function createMarkerHtml(id, point, type, html)
+{
+  var icon = getIcon(type);
+	say(html);
 	var marker = new GMarker(point, icon);
 	GEvent.addListener(marker, "click", function() {
 	  marker.openInfoWindowHtml(html);
+	});
+	
+	// save the info we need to use later for the table
+	markers[id] = marker;
+
+	return marker;
+}
+
+function createMarker(id, point, type, html)
+{
+  var icon = getIcon(type);
+	say(html);
+	var marker = new GMarker(point, icon);
+	GEvent.addListener(marker, "click", function() {
+	  marker.openInfoWindow(html);
 	});
 	
 	// save the info we need to use later for the table
@@ -99,6 +121,39 @@ function pop(id) {
 function getSelect(s) {
   return s.options[s.selectedIndex].value
 }
+
+function overlayMapHtml(xml)
+{
+  say(xml);
+  say("Removing old markers");
+	map.clearOverlays();
+	
+	var request = GXmlHttp.create();
+	request.open('GET', xml, true);
+	request.onreadystatechange = function() {
+	  if (request.readyState == 4) {
+ 			say("Adding Markers...");
+			var xmlDoc = request.responseXML;
+			var new_markers = xmlDoc.documentElement.getElementsByTagName("marker");
+			for (var i = 0; i < new_markers.length; i++) {
+			  var marker = new_markers[i];
+			  var id = marker.getAttribute("id");
+		  	var point = new GPoint(parseFloat(marker.getAttribute("lng")),
+								               parseFloat(marker.getAttribute("lat")));
+		  	var type = marker.getAttribute("type");
+		  	var html = marker.getAttribute("info");
+	  		map.addOverlay(createMarkerHtml(id, point, type, html));
+			}
+			say("Finished Adding Markers");
+	  }
+	}
+	request.send(null);
+	if (instr){
+		setTimeout("map.openInfoWindowHtml(centerAustin, '<p id=\"instruction\">Click on the list or the map\\'s markers to see what is going on in Austin.</p>');",3300);
+		instr = false;
+	}
+}
+
 
 function overlayMap(xml)
 {
@@ -119,8 +174,9 @@ function overlayMap(xml)
 		  	var point = new GPoint(parseFloat(marker.getAttribute("lng")),
 								               parseFloat(marker.getAttribute("lat")));
 		  	var type = marker.getAttribute("type");
-		  	var html = marker.getAttribute("info");
-		  	map.addOverlay(createMarker(id, point, type, html));
+		  	var html = marker.getElementsByTagName("div");
+		  	alert(toString(html[0]));
+		  	map.addOverlay(createMarkerHtml(id, point, type, toString(html.document)));
 			}
 			say("Finished Adding Markers");
 	  }
@@ -131,6 +187,9 @@ function overlayMap(xml)
 		instr = false;
 	}
 }
+
+
+
 
 // Center the map on 6th and Congress
 var map = new GMap(document.getElementById("map"));
