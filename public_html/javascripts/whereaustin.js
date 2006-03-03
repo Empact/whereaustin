@@ -46,12 +46,29 @@ wifi_low_usage_icon.image = "/images/wifi_low_usage.png";
 
 /*********** Map! ************/
 
-
-var loading = false;
 var debug = false;
-var instr = true; // Set to false after first page load
+var instr = false;
+var centerAustin = new GPoint(-97.742883, 30.268208);
+var markers = {};
 
+// Create & Initialize Map
+var map = new GMap(document.getElementById("map"));
+GEvent.addListener(map, 'loading', function() {
+  instr = false;
+  map.closeInfoWindow();
+  map.openInfoWindowHtml(centerAustin, '<p id="loading" style="width: 140px;"><img src="http://whereaustin.com/images/spinner.gif" alt="Loading..." /> Hang on a sec...</p>');
+});
+GEvent.addListener(map, 'addoverlay', function() {
+  if (!instr){
+    map.closeInfoWindow();
+    map.openInfoWindowHtml(centerAustin, '<p id="instruction">Click on the list or the map\'s markers to see what is going on in Austin.</p>');
+    instr = true;
+  }
+});
+map.addControl(new GLargeMapControl());
+map.addControl(new GMapTypeControl());
 
+// Utility Functions
 function say(message)
 {
     if (debug){
@@ -81,31 +98,13 @@ function getIcon(type)
 	return icon;
 }
 
-
-var markers = {};
-
-function createMarkerHtml(id, point, type, html)
-{
-  var icon = getIcon(type);
-	say(html);
-	var marker = new GMarker(point, icon);
-	GEvent.addListener(marker, "click", function() {
-	  marker.openInfoWindowHtml(html);
-	});
-	
-	// save the info we need to use later for the table
-	markers[id] = marker;
-
-	return marker;
-}
-
 function createMarker(id, point, type, html)
 {
   var icon = getIcon(type);
 	say(html);
 	var marker = new GMarker(point, icon);
 	GEvent.addListener(marker, "click", function() {
-	  marker.openInfoWindow(html);
+	  marker.openInfoWindowHtml(html);
 	});
 	
 	// save the info we need to use later for the table
@@ -122,17 +121,15 @@ function getSelect(s) {
   return s.options[s.selectedIndex].value
 }
 
-function overlayMapHtml(xml)
+function overlayMap(xml)
 {
-  say(xml);
-  say("Removing old markers");
+  GEvent.trigger(map, 'loading')
 	map.clearOverlays();
 	
 	var request = GXmlHttp.create();
 	request.open('GET', xml, true);
 	request.onreadystatechange = function() {
 	  if (request.readyState == 4) {
- 			say("Adding Markers...");
 			var xmlDoc = request.responseXML;
 			var new_markers = xmlDoc.documentElement.getElementsByTagName("marker");
 			for (var i = 0; i < new_markers.length; i++) {
@@ -142,70 +139,9 @@ function overlayMapHtml(xml)
 								               parseFloat(marker.getAttribute("lat")));
 		  	var type = marker.getAttribute("type");
 		  	var html = marker.getAttribute("info");
-	  		map.addOverlay(createMarkerHtml(id, point, type, html));
+	  		map.addOverlay(createMarker(id, point, type, html));
 			}
-			say("Finished Adding Markers");
 	  }
 	}
 	request.send(null);
-	if (instr){
-		setTimeout("map.openInfoWindowHtml(centerAustin, '<p id=\"instruction\">Click on the list or the map\\'s markers to see what is going on in Austin.</p>');",3300);
-		instr = false;
-	}
 }
-
-
-function overlayMap(xml)
-{
-  say(xml);
-  say("Removing old markers");
-	map.clearOverlays();
-	
-	var request = GXmlHttp.create();
-	request.open('GET', xml, true);
-	request.onreadystatechange = function() {
-	  if (request.readyState == 4) {
- 			say("Adding Markers...");
-			var xmlDoc = request.responseXML;
-			var new_markers = xmlDoc.documentElement.getElementsByTagName("marker");
-			for (var i = 0; i < new_markers.length; i++) {
-			  var marker = new_markers[i];
-			  var id = marker.getAttribute("id");
-		  	var point = new GPoint(parseFloat(marker.getAttribute("lng")),
-								               parseFloat(marker.getAttribute("lat")));
-		  	var type = marker.getAttribute("type");
-		  	var html = marker.getElementsByTagName("div");
-		  	alert(toString(html[0]));
-		  	map.addOverlay(createMarkerHtml(id, point, type, toString(html.document)));
-			}
-			say("Finished Adding Markers");
-	  }
-	}
-	request.send(null);
-	if (instr){
-		setTimeout("map.openInfoWindowHtml(centerAustin, '<p id=\"instruction\">Click on the list or the map\\'s markers to see what is going on in Austin.</p>');",3300);
-		instr = false;
-	}
-}
-
-
-
-
-// Center the map on 6th and Congress
-var map = new GMap(document.getElementById("map"));
-GEvent.addListener(map, 'clearoverlays', function() {
-  map.openInfoWindowHtml(centerAustin, '<p id="loading" style="width: 150px;"><img src="http://whereaustin.com/images/spinner.gif" alt="Loading..." /> Hang on a sec...</p>')
-  loading = true;
-});
-GEvent.addListener(map, 'addoverlay', function() {
-	if (loading){
-		map.closeInfoWindow();
-		loading = false;
-	}
-});
-map.addControl(new GLargeMapControl());
-map.addControl(new GMapTypeControl());
-GEvent.trigger(map, 'clearoverlays');
-
-var centerAustin = new GPoint(-97.742883, 30.268208);
-map.centerAndZoom(centerAustin, 4);

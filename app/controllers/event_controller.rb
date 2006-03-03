@@ -3,7 +3,7 @@ class EventController < ApplicationController
     @headers["Content-Type"] = "application/xml"
     date = params[:date] || Date.today
     @markers = Event.find(:all, :conditions => ["date = ?", date],
-                                :order => "locations.`id` ASC", :include => :venue)
+                                :include => :venue)
   end
   
   def marker

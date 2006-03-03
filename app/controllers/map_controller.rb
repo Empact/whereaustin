@@ -24,10 +24,11 @@ class MapController < ApplicationController
   
   def music(date)
     @now = date.to_s
+    all_events = Event.find(:all, :conditions => ["date = ?", @now ],
+                                  :include => :venue)
     @events = {}
     for type in @@music_types
-      @events[type.id] = Event.find(:all, :conditions => ["icon = ? AND date = ?", type.id, @now ],
-                                          :include => :venue)
+      @events[type.id] = all_events.select { |it| it.icon == type.id}
     end
     @types = @@music_types
     today = Date.today

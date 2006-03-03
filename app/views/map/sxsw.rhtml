@@ -1,12 +1,11 @@
 <% benchmark "SXSW Listings and Markers" do %>
 
-<%= javascript_tag "overlayMapHtml('http://whereaustin.com/sxsw/markers/" + @now.to_s + "');" +
-                   "map.centerAndZoom(centerAustin, 3);" +
-                   'if (instr){
-											setTimeout("map.openInfoWindowHtml(centerAustin, \'<p id=\"instruction\">Click on the list or a marker to see what is going on in Austin.</p>\');",3300);
-											instr = false;
-										}'
-                     %>
+<script type="text/javascript">
+//<![CDATA[
+map.centerAndZoom(centerAustin, 3);
+overlayMap('http://whereaustin.com/sxsw/markers/<%= @now.to_s %>');
+//]]>
+</script>
 
 <h2 id="sxsw">SXSW Music Events</h2>
 <ul class="sxswList">

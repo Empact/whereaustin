@@ -1,8 +1,11 @@
 <% benchmark "Music Listings and Markers" do %>
 
-<%= javascript_tag "overlayMapHtml('http://whereaustin.com/event/markers/" + @now + "');" +
-                                   'map.centerAndZoom(centerAustin, 4);'
- %>
+<script type="text/javascript">
+//<![CDATA[
+map.centerAndZoom(centerAustin, 4);
+overlayMap('http://whereaustin.com/event/markers/<%= @now %>');
+//]]>
+</script>
 
 <% for type in @types
      if @events[type.id].length > 0 -%>
