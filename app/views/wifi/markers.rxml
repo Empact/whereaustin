@@ -1,0 +1,37 @@
+xml.instruct!
+
+xml.markers do
+  for marker in @markers
+    xml.marker( "id" => marker.id,
+               "lat" => marker.latitude,
+               "lng" => marker.longitude,
+              "type" => marker.status,
+              "info" => h(['<div style="width: 300px;"><div class="loc">',
+        		# Location Name + URL
+                                 if marker.url.empty?
+		                          Iconv.conv("UTF-8", "Windows-1252", marker.location)
+	                      	  else
+	                      	  	['<a href="', marker.url, '">', Iconv.conv("UTF-8", "Windows-1252", marker.location), '</a>'].join
+	                      	  end,
+	                    # Location Addr
+	                         ' - <a href="http://maps.google.com/maps?f=q&hl=en&q=',
+	                         URI.escape([marker.address, marker.city,
+	                                     marker.state, marker.zip].join(", ")),
+	                        '" class="addr">',
+	                          URI.unescape(marker.address),
+	                         '</a></div>',
+	                         '<div class="eventdesc">',
+  		        # Event Name
+	                            ' <span class="eventname">',
+			                  marker.status,
+			                         '</span>',
+			               
+                      # Links
+	                         '</div><div class="dirbubble">[<a 
+href="javascript:map.centerAndZoom(new GPoint(',
+	                         [marker.longitude,
+	                          marker.latitude].join(', '),
+	                         '), map.getZoomLevel() - 1)">zoom 
+in</a>]</div></div>'].join))
+	end
+end

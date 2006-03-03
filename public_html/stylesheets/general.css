@@ -22,13 +22,15 @@ html, body {
   position: absolute; top: 0; left: 0; right: 0; height: 49px;
   display: inline;
 	border-bottom:1px dotted gray;
-	background-color:#333; 
-	padding:1em;
+	background-color:#333;
+  padding-left: .5em;
+	padding-top: 1em;
 }
 
 #header p, #header form {
     color: white;
   display: inline;
+  padding: 0; margin: 0;
 }
 
 #header a {
@@ -79,7 +81,17 @@ border-bottom:1px dotted gray;
 	position: absolute; top: 50px; bottom: 0px; left: 0px;
 }
 
-/********************** LISTINGS ***************************/
+/*********************** SXSW ****************************/
+
+#sxsw {
+  color:#C57563;
+}
+ul.sxswList li {
+list-style:none;
+background-color:#C57563;
+}
+
+/********************** LISTINGS *************************/
 #listings {
 	width: 25%;
 	overflow:auto;
@@ -100,7 +112,7 @@ border-bottom:1px dotted gray;
   color:#C57563;
 }
 
-ul.recommended a {
+ul.recommended li {
 list-style:none;
 background-color:#C57563;
 }
@@ -109,7 +121,7 @@ background-color:#C57563;
   color:#647EB5;
 }
 
-ul.roadshow a {
+ul.roadshow li {
 background-color:#647EB5;
 }
 
@@ -117,7 +129,7 @@ background-color:#647EB5;
 color:#669966;
 }	
 
-ul.music a  {
+ul.music li  {
 	background-color: #669966;
 }
 
@@ -125,7 +137,7 @@ ul.music a  {
 	color: darkgoldenrod;
 }
 
-ul.karaoke a {
+ul.karaoke li {
 	background-color: darkgoldenrod;
 /*background-color:#E2C52B;*/
 }
@@ -134,7 +146,7 @@ ul.karaoke a {
 	color: indigo;
 }
 
-ul.mic a {
+ul.mic li {
 	background-color: indigo;
 /*	background-color: mediumpurple;*/
 }
@@ -143,7 +155,7 @@ ul.mic a {
 	color: dimgray;
 }
 
-ul.dj a {
+ul.dj li {
 	background-color: dimgray;
 /*	background-color: slategray;*/
 }
@@ -163,7 +175,7 @@ font-size:14px;
   background: forestgreen;
 }
 
-.online a {
+.online li {
 	background-color: #669966;
 }
 
@@ -171,7 +183,7 @@ font-size:14px;
   background: darkgoldenrod;
 }
 
-.flakey a {
+.flakey li {
   background-color:#E2C52B;
 }
 
@@ -179,7 +191,7 @@ font-size:14px;
   background: maroon;
 }
 
-.offline a {
+.offline li {
   background-color:#C57563;
 }
 
@@ -191,7 +203,7 @@ font-size:14px;
   background-color:#647EB5;
 }
 
-.eventList {
+.eventList, .sxswList {
     list-style-type: none;
     margin: 0; padding: 0;
     border: none;
@@ -206,12 +218,12 @@ font-size:14px;
       background-color: #90bade;*/
     color: #333;
 }
-
-.eventList li {
+/*
+.eventList li, .sxswList li {
     margin: 0; padding: 0;
-}
+}*/
 
-.eventList a {
+.eventList a, .sxswList a {
     display: block;
     margin: 0; padding: 5px 5px 5px 0.5em;
     /*border-left: 10px solid #1958b7;
@@ -226,7 +238,7 @@ font-size:14px;
 	cursor:pointer;
 }
 
-.eventList a:hover{
+.eventList a:hover, .sxswList a:hover {
 /*background-color:#475F42;*/
 /*filter:alpha(opacity=70);*/
 -moz-opacity:0.7;
@@ -239,23 +251,39 @@ background-color:#80CA5D;
 }
 */
 
-.event {
+.event, .info {
 	width:300px;
 }
 
-.venue {
+.sxswvenue {
 	font-weight:bold;
 	font-size:13px; 
 	color:#e0e0e0;
-
+	background-color:#666;
 	padding:2px;
+}
+
+.venue {
+        font-weight:bold;
+        font-size:13px;
+        color:#e0e0e0;
+        background-color:#666;
+        padding:2px;
 }
 
 .act {
 list-style-type: none;
 
+        font-size:12px;
+        color:#333;
+}
+
+
+.sxswact {
+list-style-type: none;
+
 	font-size:12px;
-	color:silver;
+	color:#333;
 }
 
 h3 {
@@ -311,6 +339,7 @@ margin-top:0px;
 padding-top:0px;;
 margin-bottom:5px;
 font-size:11px;
+width: 300px;
 font-style:italic;
 /*border-bottom:1px dotted black;*/
 }

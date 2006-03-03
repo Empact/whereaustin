@@ -1,4 +1,6 @@
 class SxswController < ApplicationController
+  caches_page :markers
+
   def markers
     @headers["Content-Type"] = "application/xml"
     date = @params[:date] or Date.civil 2006, 3, 18

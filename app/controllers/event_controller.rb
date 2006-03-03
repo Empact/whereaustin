@@ -1,4 +1,5 @@
 class EventController < ApplicationController
+  caches_page :markers
   def markers
     @headers["Content-Type"] = "application/xml"
     date = params[:date] || Date.today

@@ -1,17 +1,23 @@
-<%= javascript_tag "overlayMap('http://whereaustin.com/wifi/markers/')" %>
+<script type="text/javascript">
+//<![CDATA[
+map.centerAndZoom(centerAustin, 4);
+overlayMap('http://whereaustin.com/wifi/markers/');
+//]]>
+</script>
 
-<div id="listings">
-<% for type in @types
-     if @events[type.id].length > 0 -%>
+
+<% for type in @types %>
+<%   unless @wifis[type.id].empty? or @wifis[type.id].length <= 0 -%>
 <h2 id="<%= type.id -%>"><%= type.name -%></h2>
 <ul class="eventList <%= type.id -%>">
-  <% for event in @events[type.id] -%>
-  <li><a title="<%= h(event.address || "") %>"
-         onclick="pop(<%= event.id %>)">
-    <span class="venue"><%=h event.location %></span><br />
+  <% for wifi in @wifis[type.id] -%>
+  <li><a title="<%=h Iconv.conv('utf-8', 'windows-1252', wifi.address) %>"
+         onclick="pop(<%= wifi.id %>)">
+    <span class="venue"><%=h Iconv.conv('utf-8', 'windows-1252', 
+wifi.location) %></span><br />
   </a></li>
   <% end -%>
 </ul>
-<%   end
-   end -%>
-</div>
+<%  end 
+  end -%>
+

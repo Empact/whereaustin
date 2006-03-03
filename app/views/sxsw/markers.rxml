@@ -33,7 +33,20 @@ xml.markers do
 	                            ' <span class="eventname">',
 			                         Iconv.conv("UTF-8", "Windows-1252", act.name),
 			                         '</span>',
-			               
+
+
+' <span class="sxswgenre">',
+                                                 Iconv.conv("UTF-8", "Windows-1252", act.genre),
+                                                 '</span>',
+
+unless act.audiosample.empty?
+[' <a href="#" onclick="$(\'player\').SetURL(\'', act.audiosample, '\');"  class="playaudio"><img 
+src="/images/sound.png" border="0"></a>'].join()
+end,
+
+
+
+	
 			                # Description
 			                         unless act.description.empty?
 			                         	 ['<p class="smalldesc">', marker.description.delete("[]"), '</p>'].join

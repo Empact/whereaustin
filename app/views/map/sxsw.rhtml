@@ -2,19 +2,25 @@
 
 <script type="text/javascript">
 //<![CDATA[
-map.centerAndZoom(centerAustin, 3);
+map.centerAndZoom(centerAustin, 2);
 overlayMap('http://whereaustin.com/sxsw/markers/<%= @now.to_s %>');
 //]]>
 </script>
 
 <h2 id="sxsw">SXSW Music Events</h2>
-<ul class="sxswList">
+<div style="font-size:10px; color:black;background-color:silver;padding:3px;">
+<b>live search:</b><br/><input onkeyup="livesearch();" id="whereaustinsearch">
+</div>
+<ul class="sxswList" id="sxswul">
   <% for venue in @sxsw.keys -%>
   <li title="<%= h(@sxsw[venue][0].venue.address || "") %>">
     <a onclick="pop(<%= @sxsw[venue][0].venue.id %>)">
-	    <span class="venue"><%= Iconv.conv("UTF-8", "Windows-1252", venue) %></span><br />
+	    <span class="sxswvenue"><%= Iconv.conv("UTF-8", "Windows-1252", venue) %></span><br />
 	    <% for act in @sxsw[venue] -%>
-	    <span class="act">- <%= Iconv.conv("UTF-8", "Windows-1252", act.name) %></span><br />
+	    <span class="sxswact">- <%= Iconv.conv("UTF-8", "Windows-1252", act.name) %> 
+	<span style="font-size:10px; font-style:italic;"><%= act.genre%></span>
+</span><br 
+/>
 	    <% end -%>
     </a>
   </li>
