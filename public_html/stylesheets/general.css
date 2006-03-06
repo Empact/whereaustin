@@ -8,6 +8,10 @@ html, body {
   min-width: 775px;
 }
 
+img {
+  border: 0;
+}
+
 .mark {
 	width: 12px; height: 20px;
 }
@@ -19,7 +23,8 @@ html, body {
 /********************  HEADER ***************************/
 
 #header {
-  position: absolute; top: 0; left: 0; right: 0; height: 49px;
+  color:white;
+  position: absolute; top: 0; left: 0; right: 0; height: 85px;
   display: inline;
 	border-bottom:1px dotted gray;
 	background-color:#333;
@@ -27,23 +32,43 @@ html, body {
 	padding-top: 1em;
 }
 
-#header p, #header form {
-    color: white;
+#header p, #header form, #header span, #header dl {
+  color: white;
   display: inline;
   padding: 0; margin: 0;
 }
 
 #header a {
-color:white;
+color: white;
 text-decoration:none;
 border-bottom:1px dotted gray;
+}
+
+#site {
+//  background-color: rgb(170, 170, 170);
+  padding-bottom: 1em;
+}
+
+#nav {
+  position: absolute; right: 1.3em;
+}
+
+#nav, #nav li {
+  padding: 0; margin:0;
+  list-style-type: none;
+  display: inline;
+}
+
+#view {
+//  background-color: rgb(204, 204, 204)
+  position: absolute; bottom: .5em;
 }
 
 #key {
 	margin: 0; padding: 0 1em 0 0;
 	list-style-type: none;
 	text-align: right;
-  position: absolute; right: .1em; top: 1em;
+  position: absolute; right: 1.3em;
 }
 
 #key dd, #key dt {
@@ -56,17 +81,9 @@ border-bottom:1px dotted gray;
 	padding:0; margin: 0 0 0 .5em;
 }
 
-/********************  FOOTER ***************************/
-#attribution {
-	padding: 0; margin: 0 0 0 .5em;
-	float: left;
-}
-
-#nav {
-	list-style-type: none;
-	text-align: right;
-	font-size: 110%;
-	padding: 0 0 .5em 0; margin: 0 1em 0 0;
+.selected {
+  font-weight: bold;
+  text-decoration: none;
 }
 
 /********************  INSTRUCTION ***************************/
@@ -78,7 +95,24 @@ border-bottom:1px dotted gray;
 #map {
 	width: 75%;
 	margin: 0; padding: 0;
-	position: absolute; top: 50px; bottom: 0px; left: 0px;
+	position: absolute; top: 85px; bottom: 0px; left: 0px;
+}
+
+/********************** LISTINGS *************************/
+#listings {
+	width: 25%;
+	overflow:auto;
+	 position: absolute; top: 85px; bottom: 0; right: 0;
+	border-left:5px solid #333;
+}
+
+#listings h2 {
+	background:#333;
+	text-align: center;
+	margin: 0; padding: 0.2em;
+    border-bottom: 1px solid black;
+	font-size: 1.6em;
+	font-variant: small-caps;
 }
 
 /*********************** SXSW ****************************/
@@ -91,22 +125,7 @@ list-style:none;
 background-color:#C57563;
 }
 
-/********************** LISTINGS *************************/
-#listings {
-	width: 25%;
-	overflow:auto;
-	 position: absolute; top: 50px; bottom: 0; right: 0;
-	border-left:5px solid #333;
-}
-
-#listings h2 {
-	background:#333;
-	text-align: center;
-	margin: 0; padding: 0.2em;
-    border-bottom: 1px solid black;
-	font-size: 1.6em;
-	font-variant: small-caps;
-}
+/******************** MUSIC ******************************/
 
 #recommended {
   color:#C57563;
@@ -171,36 +190,36 @@ font-size:14px;
 /************************************************
        WIFI MARKERS
  ************************************************/
-#online {
-  background: forestgreen;
+#Online {
+  color: forestgreen;
 }
 
-.online li {
-	background-color: #669966;
+.Online li {
+	background-color: forestgreen;
 }
 
-#flakey {
-  background: darkgoldenrod;
+#Flakey {
+  color: darkgoldenrod;
 }
 
-.flakey li {
-  background-color:#E2C52B;
+.Flakey li {
+  background-color:darkgoldenrod;
 }
 
-#offline {
-  background: maroon;
+#Offline {
+  color: maroon;
 }
 
-.offline li {
-  background-color:#C57563;
+.Offline li {
+  background-color: maroon;
 }
 
-#lowusage {
-  background: darkblue;
+#Lowusage {
+  color: darkblue;
 }
 
-.lowusage {
-  background-color:#647EB5;
+.Lowusage {
+  background-color:darkblue;
 }
 
 .eventList, .sxswList {

@@ -11,35 +11,46 @@
 
 <body>
 <div id="header">
-    <!--<ul id="nav">
-      <li><a title="Who we are, what we are, where we're going" href="http://whereaustin.com/about">About WhereAustin</a></li>
-      <li><a title="Questions? Comments? Ideas? We'll do our best to respond..." href="mailto:whereaustin@gmail.com">Contact Us</a></li>
-      <li><a title="Doesn't everyone have one? News and Updates from WhereAustin.com" href="http://whereaustin.com/log/">Our Blog</a></li>
-    </ul>-->
-    <span class="alert"><%= flash[:notice] %></span>
-    <p><%= @message %></p>
-    <% unless @no_date %>
-    <%= form_remote_tag :update => "listings", :url => { :action => @my_action }, :class => "select" %>
-    <%= select_tag :date,
-                   options_for_select(@date_options,
-                               @params[:date]),
-                   :onchange => "document.getElementById('update').click()" %>
-    <%= submit_tag "Update", :id => "update", :style => "display: none;" %>
-    <%= end_form_tag %>
-    <% end %>
-    <dl id="key">
-      <% for key, value in @keys %>
-      <dt><%= key %></dt>
-        <dd><%= value %></dd>
-      <% end %>
-    </dl>
+  <div id="site">
+    <span id="title">WhereAustin.com <sup id="beta">(beta)</sup>: <a <%= 'href="http://whereaustin.com"' unless @events %>>Music</a>,
+                                                                  <a <%= 'href="http://whereaustin.com/wifi/"' unless @wifis %>>Wifi</a>,
+                                                              and <a href="http://whereaustin.com/sxsw/">SXSW</a>, all in Austin</span>
+    <ul id="nav">
+      <li><a href="http://whereaustin.blogspot.com"><%= image_tag 'comment' %> Blog</a></li>
+      <li><a href="mailto:whereaustin@gmail.com" id="mail"><%= image_tag 'mail' %> Mail</a></li>
+    </ul>
+  </div>
+	<div id="view">
+	    <!--<ul id="nav">
+	      <li><a title="Who we are, what we are, where we're going" href="http://whereaustin.com/about">About WhereAustin</a></li>
+	      <li><a title="Questions? Comments? Ideas? We'll do our best to respond..." href="mailto:whereaustin@gmail.com">Contact Us</a></li>
+	      <li><a title="Doesn't everyone have one? News and Updates from WhereAustin.com" href="http://whereaustin.com/log/">Our Blog</a></li>
+	    </ul>-->
+	    <span class="alert"><%= flash[:notice] %></span>
+	    <p><%= @message %></p>
+	    <% unless @no_date %>
+	    <%= form_remote_tag :update => "listings", :url => { :action => @my_action }, :class => "select" %>
+	    <%= select_tag :date,
+	                   options_for_select(@date_options,
+	                               @params[:date]),
+	                   :onchange => "document.getElementById('update').click()" %>
+	    <%= submit_tag "Update", :id => "update", :style => "display: none;" %>
+	    <%= end_form_tag %>
+	    <% end %>
+	    <dl id="key">
+	      <% for key, value in @keys -%>
+	      <dt><%= key %></dt>
+	      <dd><%= value %></dd>
+	      <% end -%>
+	    </dl>
+	<!--[if gt IE 6]>
+		<div class="alert">
+		  <p>Well you seem to be using Internet Explorer 7 or better, which we don't support, yet.
+		  <a href="mailto:whereaustin@gmail.com">Let us know</a> you want us to, and maybe we'll hurry up!</p>
+		</div>
+	<![endif]-->
+  </div>
 </div>
-<!--[if gt IE 6]>
-<div class="alert">
-  <p>Well you seem to be using Internet Explorer 7 or better, which we don't support, yet.
-  <a href="mailto:whereaustin@gmail.com">Let us know</a> you want us to, and maybe we'll hurry up!</p>
-</div>
-<![endif]-->
 
 <div id="map"></div>
 <%= javascript_include_tag 'whereaustin' %>

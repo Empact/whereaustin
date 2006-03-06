@@ -7,8 +7,8 @@ overlayMap('http://whereaustin.com/event/markers/<%= @now %>');
 //]]>
 </script>
 
-<% for type in @types
-     if @events[type.id].length > 0 -%>
+<% for type in @types -%>
+<% if @events[type.id].length > 0 -%>
 <h2 id="<%= type.id -%>"><%= type.name -%></h2>
 <ul class="eventList <%= type.id -%>">
   <% for event in @events[type.id] -%>
@@ -25,3 +25,16 @@ overlayMap('http://whereaustin.com/event/markers/<%= @now %>');
    end   -%>
    
 <% end %>
+
+
+<script type="text/javascript">
+//<![CDATA[
+<% for type in @types
+     if @events[type.id].length <= 0 -%>
+Element.hide("<%= type.id + "_key" %>", "<%= type.id + "_value" %>");
+<%   else -%>
+Element.show("<%= type.id + "_key" %>", "<%= type.id + "_value" %>");
+<%   end
+   end -%>
+//]]>
+</script>

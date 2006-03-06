@@ -10,18 +10,40 @@
 </head>
 
 <body>
-<div id="header">
-<embed id="player" src="http://audio.sxsw.com/2006/mp3/Serena_Maneesh-un-deux.mp3" CONTROLS="console" 
-AUTOPLAY="FALSE" height="12" width="100">
+<div id="sxswheader">
 
-    <!--<ul id="nav">
-      <li><a title="Who we are, what we are, where we're going" href="http://whereaustin.com/about">About WhereAustin</a></li>
-      <li><a title="Questions? Comments? Ideas? We'll do our best to respond..." href="mailto:whereaustin@gmail.com">Contact Us</a></li>
-      <li><a title="Doesn't everyone have one? News and Updates from WhereAustin.com" href="http://whereaustin.com/log/">Our Blog</a></li>
-    </ul>-->
+<div style="font-size:10px; color:white;background-color:#333;width:25%;height:90px; padding-left:5px; float:right;">
+
+<a href="http://www.whereaustin.com" style="padding-left:5px; color:gray;font-size:9px;">built by john pratt and ben woosley</a><br/><br/>
+
+
+<span style="padding-left:5px;"><b>live search: <%= @params[:date] %> </b><br/><input onkeyup="livesearch();" 
+id="whereaustinsearch"></span>
+
+</div>
+
+
+
     <span class="alert"><%= flash[:notice] %></span>
-    <p><%= @message %></p>
+
+<div style="background-color:#666; color:white; width:75%; height:80px; padding:10px;padding-top:0px;">
+<div style="width:400px; float:right; padding-left:5px; height:90px;background-color:gray;">
+<div style="height:70px; width:70px; float:left; margin-top:5px; margin-right:5px;border:1px solid #333">
+</div>
+
+<table cellspacing="0" cellpadding="0">
+<tr><td>Now playing:</td><td id="playercolumn">[player]</td></tr>
+<tr><td>Artist:</td><td id="playerartist">artist</td></tr>
+<tr><td>Venue:</td><td id="playervenue">venue</td></tr>
+<tr><td>Time:</td><td id="playertime">time</td></tr>
+</table>
+
+</div>
+
+<h3 style="padding-top:10px;">SXSW 2006 MAP</h3>
+<div style="color:silver;">show music events for:</div>
     <% unless @no_date %>
+
     <%= form_remote_tag :update => "listings", :url => { :action => @my_action }, :class => "select" %>
     <%= select_tag :date,
                    options_for_select(@date_options,
@@ -30,21 +52,23 @@ AUTOPLAY="FALSE" height="12" width="100">
     <%= submit_tag "Update", :id => "update", :style => "display: none;" %>
     <%= end_form_tag %>
     <% end %>
-    <dl id="key">
-      <% for key, value in @keys %>
-      <dt><%= key %></dt>
-        <dd><%= value %></dd>
-      <% end %>
-    </dl>
 
 
 </div>
+
+</div>
+
+
+
+
 <!--[if gt IE 6]>
 <div class="alert">
   <p>Well you seem to be using Internet Explorer 7 or better, which we don't support, yet.
   <a href="mailto:whereaustin@gmail.com">Let us know</a> you want us to, and maybe we'll hurry up!</p>
 </div>
 <![endif]-->
+
+
 
 <div id="map"></div>
 <%= javascript_include_tag 'whereaustin' %>

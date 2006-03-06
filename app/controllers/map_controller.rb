@@ -22,8 +22,9 @@ class MapController < ApplicationController
     @date_options = [['Today', today.to_s], ['Tomorrow', (today + 1).to_s]].concat(
                      Array.new(6).fill(0..5) {|i| [Date::DAYNAMES[(today + i+2).wday], (today + i + 2).to_s]}
                     )
-    @message = "Showing music events occurring:"
+    @message = "Showing music events for:"
     @my_action = :new_music
+
     @keys = MUSIC_KEYS
   end
   
@@ -31,7 +32,9 @@ class MapController < ApplicationController
     all_wifis = Wifi.find(:all)
     @wifis = {}
     for type in @@wifi_types
-      @wifis[type.id] = all_wifis.select {|it| it.status == type.id }
+      id = type.id
+      id = "Low Usage" if type.id == "Lowusage"
+      @wifis[type.id] = all_wifis.select {|it| it.status == id }
     end
     @types = @@wifi_types
     @no_date = true;
@@ -40,11 +43,16 @@ class MapController < ApplicationController
   end
   
   def new_sxsw
-    sxsw
-    render :layout => false, :action => 'sxsw'
+    sxsw_vals
+    render :action => :sxsw, :layout => false
   end
   
   def sxsw
+    sxsw_vals
+    render :layout => 'sxswmap'
+  end
+   
+  def sxsw_vals
     @now = Date.parse(@params[:date])
     @date_options = [['Wed, March 15th', @now.to_s],     ['Thurs, March 16th', (@now + 1).to_s],
                      ['Fri, March 17th', (@now + 2).to_s], ['Sat, March 18th', (@now + 3).to_s],
@@ -52,6 +60,8 @@ class MapController < ApplicationController
     @message = "Showing SXSW Music events occurring:"
     @my_action = :new_sxsw
     @keys = SXSW_KEYS
+    @player = true
+    
     sxsw = Sxsw.find(:all, :conditions => ["performancedate = ?", @now], :include => :venue)
     @sxsw = {}
     for event in sxsw
@@ -60,11 +70,20 @@ class MapController < ApplicationController
       else
         @sxsw[event.venue.name] << event
       end
-    end
-    render :layout => 'sxswmap'
+    end  
   end
    
 private
+
+  def gen_keys(types, events, in_keys)
+    keys = []
+    for type in types
+      keys += in_keys[type.id] if events[type.id].length > 0
+    end
+    keys
+  end
+  
+
   Type  = Struct.new(:id, :name)
   @@music_types = [Type.new("recommended", "Top Events"),
                   Type.new("roadshow",    "Road Show Events"),
@@ -73,30 +92,33 @@ private
                   Type.new("mic",         "Open Mic Events"),
                   Type.new("karaoke",     "Karaoke Events")]
   @@wifi_types = [Type.new("Online",      "Online"),
+                  Type.new("Lowusage",    "Low-Usage"),
                   Type.new("Flakey",      "Flakey"),
-                  Type.new("Offline",     "Offline"),
-                  Type.new("lowusage",    "Low-Usage")]
+                  Type.new("Offline",     "Offline")]
 
-  MUSIC_KEYS = [['<img src="http://whereaustin.com/images/recommended.png" alt="Recommended Event Marker" />', 
-                 '<a href="#recommended">recommended</a>'],
-                ['<img src="http://whereaustin.com/images/roadshow.png" alt="Roadshow Event Marker" />', 
-                 '<a href="#roadshow">roadshow</a>'],
-                ['<img src="http://whereaustin.com/images/music.png" alt="Live Music Event Marker" />', 
-                 '<a href="#music">live music</a>'],
-                ['<img src="http://whereaustin.com/images/dj.png" alt="DJ Event Marker" />', 
-                 '<a href="#dj">dj</a>'],
-                ['<img src="http://whereaustin.com/images/mic.png" alt="Open Mic Event Marker" />', 
-                 '<a href="#mic">open mic</a>'],
-                ['<img src="http://whereaustin.com/images/karaoke.png" alt="Karaoke Event Marker" />', 
-                 '<a href="#karaoke">karaoke</a>']]
+  MUSIC_KEYS = [   ['<img src="http://whereaustin.com/images/recommended.png" alt="Recommended Event Marker" id="recommended_key" />', 
+                   '<a href="#recommended" id="recommended_value">recommended</a>'],
+                   ['<img src="http://whereaustin.com/images/roadshow.png" alt="Roadshow Event Marker" id="roadshow_key" />', 
+                       '<a href="#roadshow" id="roadshow_value">roadshow</a>'],
+                   ['<img src="http://whereaustin.com/images/music.png" alt="Live Music Event Marker" id="music_key" />', 
+                       '<a href="#music" id="music_value">live music</a>'],
+                   ['<img src="http://whereaustin.com/images/dj.png" alt="DJ Event Marker" id="dj_key" />', 
+                       '<a href="#dj" id="dj_value">dj</a>'],
+                   ['<img src="http://whereaustin.com/images/mic.png" alt="Open Mic Event Marker" id="mic_key" />', 
+                       '<a href="#mic" id="mic_value">open mic</a>'],
+                   ['<img src="http://whereaustin.com/images/karaoke.png" alt="Karaoke Event Marker" id="karaoke_key" />', 
+                       '<a href="#karaoke" id="karaoke_value">karaoke</a>']
+                 ]
+                 
   SXSW_KEYS = [['<img src="http://whereaustin.com/images/recommended.png" alt="SXSW Music Event Marker" />',
                 '<a>SXSW Music Event</a>' ]]
   WIFI_KEYS = [['<img src="http://whereaustin.com/images/wifi_online.png" alt="Live Hotspot" />',
-                '<a href="#online">Online</a>'],
+                '<a href="#Online">Online</a>'],
                ['<img src="http://whereaustin.com/images/wifi_low_usage.png" alt="Low-usage Hotspot" />',
-                '<a href="#lowusage">Low Usage</a>'],
+                '<a href="#Lowusage">Low Usage</a>'],
                ['<img src="http://whereaustin.com/images/wifi_flakey.png" alt="Flakey Hotspot" />',
-                '<a href="#flakey">Flakey</a>'],
+                '<a href="#Flakey">Flakey</a>'],
                ['<img src="http://whereaustin.com/images/wifi_offline.png" alt="Offline Hotspot" />',
-                '<a href="#offline">Offline</a>']]
+                '<a href="#Offline">Offline</a>']
+              ]
 end
